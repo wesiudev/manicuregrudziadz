@@ -111,27 +111,27 @@ export default function PlaceOrder({
           Zarejestruj się, aby dokończyć rezerwację.
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="flex flex-col">
-            {/* {[{ label: "", key: "", value: "", placeholder: "" }].map(
+          {/* {[{ label: "", key: "", value: "", placeholder: "" }].map(
               //zrobić cleanup i poprawić design.
               (item: any, i: any) => (
                 <div key={i}></div>
               )
             )} */}
-            <div className="flex flex-col">
-              <label htmlFor="phoneNumber" className="font-bold">
-                Numer telefonu
-              </label>
-              <input
-                type="text"
-                id="phoneNumber"
-                value={userData.phoneNumber}
-                onChange={(e) =>
-                  setUserData({ ...userData, phoneNumber: e.target.value })
-                }
-                className="mt-1 bg-indigo-500 text-white shadow-sm shadow-black rounded-xl p-3 text-xl mb-3"
-              />
-            </div>
+          <div className="flex flex-col">
+            <label htmlFor="phoneNumber" className="font-bold">
+              Numer telefonu
+            </label>
+            <input
+              type="text"
+              id="phoneNumber"
+              value={userData.phoneNumber}
+              onChange={(e) =>
+                setUserData({ ...userData, phoneNumber: e.target.value })
+              }
+              className="mt-1 bg-indigo-500 text-white shadow-sm shadow-black rounded-xl p-3 text-xl mb-3"
+            />
+          </div>
+          <div className="flex flex-col">
             <label htmlFor="email" className="font-bold">
               Email
             </label>
