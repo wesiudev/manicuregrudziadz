@@ -16,20 +16,6 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-body.modal-open {
-  overflow: hidden;
-}
-
 @keyframes slideFromBottomToTop {
   0% {
     transform: translateY(100%);
@@ -41,7 +27,7 @@ body.modal-open {
 
 .slide-from-bottom-to-top {
   animation-name: slideFromBottomToTop;
-  animation-duration: .5s; /* Adjust the animation speed as needed */
+  animation-duration: 0.5s; /* Adjust the animation speed as needed */
   animation-timing-function: ease-in; /* Adjust the timing function as needed */
 }
 
@@ -56,26 +42,83 @@ body.modal-open {
 
 .slide-from-top-to-bottom {
   animation-name: slideFromTopToBottom;
-  animation-duration: .5s; /* Adjust the animation speed as needed */
+  animation-duration: 0.5s; /* Adjust the animation speed as needed */
   animation-timing-function: ease-in; /* Adjust the timing function as needed */
 }
-
 
 .scrollbar::-webkit-scrollbar {
   width: 15px;
   height: 20px;
-  background-color: #f57293;
+  background-color: #8a8989;
   padding: 2px;
-  margin:2px;
+  margin: 2px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-  background: rgb(244 63 94);
-  border-radius: 10px;
+  background: rgb(80, 80, 80);
   padding: 2px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #df7c7c;
+  background: rgb(63, 63, 63);
+}
+.scrollbar-rounded::-webkit-scrollbar {
+  width: 15px;
+  height: 20px;
+  background-color: #8a8989;
+  padding: 2px;
+  margin: 2px;
+  border-radius: 10px;
 }
 
+.scrollbar-rounded::-webkit-scrollbar-thumb {
+  background: rgb(80, 80, 80);
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.scrollbar-rounded::-webkit-scrollbar-thumb:hover {
+  background: rgb(63, 63, 63);
+}
+
+.menu {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  padding: 0;
+}
+.line {
+  fill: none;
+  stroke: white;
+  stroke-width: 4;
+  transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.line1 {
+  stroke-dasharray: 60 207;
+  stroke-width: 4;
+}
+.line2 {
+  stroke-dasharray: 60 60;
+  stroke-width: 4;
+}
+.line3 {
+  stroke-dasharray: 60 207;
+  stroke-width: 4;
+}
+.opened .line1 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+  stroke-width: 4;
+}
+.opened .line2 {
+  stroke-dasharray: 1 60;
+  stroke-dashoffset: -30;
+  stroke-width: 4;
+}
+.opened .line3 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+  stroke-width: 4;
+}

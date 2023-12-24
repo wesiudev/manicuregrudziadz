@@ -1,0 +1,95 @@
+{
+  "content": [
+    {
+      "url": "paznokcie-klasyczne-grudziadz",
+      "service": "Paznokcie Klasyczne",
+      "serviceDesc": "Oferuję eleganckie i trwałe paznokcie klasyczne, które podkreślą Twoją naturalną urodę. Zadbam o każdy detal, abyś poczuła się wyjątkowo i zadbana.",
+      "additionalInfo": {
+        "keywords": [
+          "paznokcie klasyczne",
+          "manicure tradycyjny",
+          "elegancja paznokci"
+        ],
+        "duration": "40-60 minut",
+        "optionsAvailable": ["jednokolorowe", "naturalne", "minimalistyczne"]
+      }
+    },
+    {
+      "url": "paznokcie-hybrydowe-grudziadz",
+      "service": "Paznokcie Hybrydowe",
+      "serviceDesc": "Zanurz się w świecie nowoczesnej stylizacji paznokci hybrydowych. używam najwyższej jakości produktów, zapewniając trwały efekt i piękną kolorystykę.",
+      "additionalInfo": {
+        "keywords": [
+          "paznokcie hybrydowe",
+          "hybrydowy manicure",
+          "trwała stylizacja paznokci"
+        ],
+        "duration": "60-75 minut",
+        "optionsAvailable": ["ombre", "gradient", "geometryczne"]
+      }
+    },
+    {
+      "url": "paznokcie-francuskie-grudziadz",
+      "service": "Paznokcie Francuskie",
+      "serviceDesc": "Styl klasyczny spotyka się z nowoczesnością w Twoich paznokciach francuskich. Daj swoim dłoniom elegancję i finezję dzięki tej ponadczasowej stylizacji.",
+      "additionalInfo": {
+        "keywords": [
+          "paznokcie francuskie",
+          "stylizacja paznokci w stylu francuskim",
+          "elegancja"
+        ],
+        "duration": "55-65 minut",
+        "optionsAvailable": [
+          "klasyczna biała końcówka",
+          "francuski manicure kolorowy"
+        ]
+      }
+    },
+    {
+      "url": "paznokcie-zelowe-grudziadz",
+      "service": "Paznokcie Żelowe",
+      "serviceDesc": "Żelowe paznokcie to doskonały wybór dla osób poszukujących trwałej i modnej stylizacji. Zapewniam różnorodność kolorów i efektów, dostosowanych do Twoich indywidualnych preferencji.",
+      "additionalInfo": {
+        "keywords": [
+          "paznokcie żelowe",
+          "trwałe stylizacje",
+          "nowoczesne trendy paznokciowe"
+        ],
+        "duration": "75-85 minut",
+        "optionsAvailable": ["błyszczące", "matowe", "delikatne"]
+      }
+    },
+    {
+      "url": "paznokcie-naturalne-grudziadz",
+      "service": "Paznokcie Naturalne",
+      "serviceDesc": "Dla miłośniczek naturalnego wyglądu proponuję paznokcie naturalne. Dodaję blasku Twoim naturalnym paznokciom, podkreślając ich zdrowy wygląd.",
+      "additionalInfo": {
+        "keywords": [
+          "paznokcie naturalne",
+          "naturalny wygląd paznokci",
+          "zdrowe paznokcie"
+        ],
+        "duration": "40-50 minut",
+        "optionsAvailable": [
+          "clear nails",
+          "delikatne wzory",
+          "pielęgnacyjne zabiegi"
+        ]
+      }
+    },
+    {
+      "url": "paznokcie-zdobione-grudziadz",
+      "service": "Paznokcie Zdobione",
+      "serviceDesc": "Wyraź swoją kreatywność poprzez nasze paznokcie zdobione. Oferuję unikalne wzory, kamienie, i inne dekoracje, abyś mogła wyrazić swój indywidualny styl.",
+      "additionalInfo": {
+        "keywords": [
+          "paznokcie zdobione",
+          "artystyczny manicure",
+          "unikalne wzory"
+        ],
+        "duration": "65-75 minut",
+        "optionsAvailable": ["kryształy", "brokat", "malowanki"]
+      }
+    }
+  ]
+}

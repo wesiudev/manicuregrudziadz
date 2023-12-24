@@ -2,34 +2,32 @@ import { Parisienne } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
 import { Metadata } from "next";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
+import { Header } from "@/components/Header";
+import Footer from "@/components/Footer";
+import Toast from "@/components/Toast";
 export const metadata: Metadata = {
-  title:
-    "ManicureGrudziadz.pl - Pasja Manicure | Rezerwacje Online | Anna Żebrowska Manicure | Paznokcie Grudziądz",
+  title: " Paznokcie Grudziądz - Zróbmy Hybrydy, Żelowe lub Klasyczne!",
   description:
-    "Zadbaj o swoje paznokcie - manicure na imprezę urodzinową, święto lub sylwestra? Rezerwacja Manicure na ManicureGrudziadz.pl",
-  themeColor: "pink",
-  publisher: "wesiudev",
+    "Zarezerwuj sesję manicure w Grudziądzu! Paznokcie Hybrydowe, Żelowe, Klasyczne i wiele więcej. Paznokcie na imprezę?",
+  publisher: "quixy",
   manifest: "/manifest.json",
   icons: {
     icon: "/favicon.png",
   },
 };
-export const dynamic = "auto";
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pl" className="scrollbar ">
+    <html lang="pl">
       <body
-        className={`${cocosharp.variable} ${parisienne.variable}
-       w-full `}
+        className={`mt-[75px] ${cocosharp.variable} ${parisienne.variable}
+       w-full overflow-x-hidden`}
       >
-        {" "}
         <Header />
+        <Toast />
         {children}
         <Footer />
       </body>

@@ -53,9 +53,10 @@ module.exports = {
         pars: ["var(--font-persisienne)"],
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        heroImage: "url('/images/page/4.webp')",
+        icecream: "url('/images/page/2.webp')",
+        slug: "url('/images/page/11.png')",
+        dashboard: "url('/images/page/bg-dashboard.png')",
       },
     },
   },

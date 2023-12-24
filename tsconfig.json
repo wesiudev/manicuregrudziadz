@@ -23,6 +23,15 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/components/HeroImages",
+    "app/components/ServicesGrid/GridElement.tsx",
+    "app/components/ServicesGrid/index.tsx",
+    "redux/slices/userSlice.ts"
+  ],
   "exclude": ["node_modules"]
 }
