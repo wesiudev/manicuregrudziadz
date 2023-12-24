@@ -3,7 +3,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { storage } from "@/firebase";
 import { FaCheck, FaPlusSquare } from "react-icons/fa";
-var randomId = require("random-id");
+import { v4 as uuidv4 } from "uuid";
 
 import Image from "next/image";
 import { FaImage } from "react-icons/fa";
@@ -38,7 +38,7 @@ export default function PostImages({
   const [loading, setLoading] = useState(-1);
   function handleImageUpload(img: File, idx: number) {
     setLoading(idx);
-    const randId = `image-${randomId(20, "aA0")}`;
+    const randId = `image-${uuidv4()}`;
     const imageRef = ref(storage, randId);
     uploadBytes(imageRef, img).then(() =>
       getDownloadURL(imageRef).then((url) => {
