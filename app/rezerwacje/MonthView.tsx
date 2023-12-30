@@ -145,17 +145,26 @@ const MonthView = ({
                         />
                       )}
 
-                      {(phoneNumber.length >= 9 && !isLoading) ||
-                        (userData?.phoneNumber >= 9 && !isLoading && (
-                          <button
-                            onClick={() => {
-                              finalizeOrder(phoneNumber), setLoading(true);
-                            }}
-                            className=" bg-green-600 hover:bg-green-500 duration-300 text-white font-bold text-xl rounded-xl py-2 w-full mt-2"
-                          >
-                            Zarezerwuj
-                          </button>
-                        ))}
+                      {phoneNumber.length >= 9 && !isLoading && !user && (
+                        <button
+                          onClick={() => {
+                            finalizeOrder(phoneNumber), setLoading(true);
+                          }}
+                          className=" bg-green-600 hover:bg-green-500 duration-300 text-white font-bold text-xl rounded-xl py-2 w-full mt-2"
+                        >
+                          Zarezerwuj
+                        </button>
+                      )}
+                      {userData?.phoneNumber >= 9 && !isLoading && (
+                        <button
+                          onClick={() => {
+                            finalizeOrder(phoneNumber), setLoading(true);
+                          }}
+                          className=" bg-green-600 hover:bg-green-500 duration-300 text-white font-bold text-xl rounded-xl py-2 w-full mt-2"
+                        >
+                          Zarezerwuj
+                        </button>
+                      )}
                       {(phoneNumber.length >= 9 && isLoading) ||
                         (userData?.phoneNumber >= 9 && isLoading && (
                           <button
