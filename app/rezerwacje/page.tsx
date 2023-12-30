@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Booking from "./Booking";
 
-export async function getServicesList() {
+async function getServicesList() {
   const req = await fetch(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/services?secret=${process.env.API_SECRET_KEY}`,
     { cache: "no-store" }
