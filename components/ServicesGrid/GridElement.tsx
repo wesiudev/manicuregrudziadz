@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
-import { IService } from ".";
+
 import Link from "next/link";
 import { FaClock } from "react-icons/fa";
 export const GridElement = ({
@@ -9,7 +9,7 @@ export const GridElement = ({
   serviceDesc,
   duration,
   url,
-}: IService) => {
+}: any) => {
   return (
     <div className="bg-white flex flex-col justify-between min-w-[300px] lg:min-w-[400px] cursor-grab rounded-xl">
       <h2 className="text-xl sm:text-2xl p-3 pb-0 font-bold flex flex-row justify-between items-center">
