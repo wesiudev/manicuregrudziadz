@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { cutSentence } from "@/app/utils/cutSentence";
 import Image from "next/image";
 
 import Link from "next/link";
@@ -27,7 +28,9 @@ export const GridElement = ({
           alt=""
           className=""
         />
-        <span className="hidden sm:block mt-3 text-sm px-3">{serviceDesc}</span>
+        <span className="hidden sm:block mt-3 text-sm px-3">
+          {cutSentence(serviceDesc)}
+        </span>
       </p>
       <Link
         className="w-full py-2 bg-black rounded-b-xl text-white font-light text-center mt-0 sm:mt-3"
