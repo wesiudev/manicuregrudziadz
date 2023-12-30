@@ -145,7 +145,7 @@ const MonthView = ({
                         />
                       )}
 
-                      {phoneNumber.length >= 9 && !isLoading && !user && (
+                      {phoneNumber.length >= 9 && !isLoading && !userData && (
                         <button
                           onClick={() => {
                             finalizeOrder(phoneNumber), setLoading(true);
