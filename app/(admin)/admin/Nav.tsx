@@ -48,50 +48,7 @@ export default function Nav({
         },
       ],
     },
-    {
-      title: "Sklep",
-      href: `/admin/shop`,
-      expandable: true,
-      icon: <FaShoppingCart />,
-      subItems: [
-        {
-          title: "Dodaj produkt",
-          href: `/admin/shop/add-product`,
-          icon: <FaPlus />,
-        },
-        {
-          title: "Edytuj produkt",
-          href: `/admin/shop/edit-product`,
-          icon: <FaEdit />,
-        },
-        {
-          title: "Usuń produkt",
-          href: `/admin/shop/remove-product`,
-          icon: <FaRemoveFormat />,
-        },
-        {
-          title: "Zamówienia",
-          href: `/admin/shop/orders`,
-          icon: <FaClipboardList />,
-        },
-        {
-          title: "Utwórz promocję",
-          href: `/admin/shop/create-promo`,
-          icon: <FaTags />,
-        },
-      ],
-    },
     { title: "Użytkownicy", href: `/admin/users`, icon: <FaUsers /> },
-    {
-      title: "Statystyki",
-      href: `/admin/analytics`,
-      icon: <FaChartLine />,
-    },
-    {
-      title: "Ustawienia",
-      href: `/admin/configuration`,
-      icon: <FaCog />,
-    },
     {
       title: "Logout",
       href: `/admin/logout`,

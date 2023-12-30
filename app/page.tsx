@@ -1,20 +1,17 @@
 import About from "@/components/About";
-import { Hero } from "@/components/Hero";
+import { Hero } from "@/components/Hero/Hero";
 import Reserve from "@/components/Reserve";
 import carousel from "@/public/carousel.json";
 import { ServicesGrid } from "@/components/ServicesGrid";
-
-async function getServicesList() {
-  const req = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/services`);
-  const services = req.json();
-  return services;
-}
+import HowItWorks from "@/components/HowItWorks";
+import { getDocuments } from "@/firebase";
 
 export default async function Home() {
-  const { services } = await getServicesList();
+  const services = await getDocuments("services");
   return (
     <div className="w-full">
       <Hero />
+      <HowItWorks />
       <ServicesGrid services={services} />
       <Reserve />
       <About carousel={carousel.carousel} />

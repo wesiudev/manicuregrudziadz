@@ -14,8 +14,8 @@ export default function BookingsMap({
   setOpenedBooking: Function;
 }) {
   return (
-    <ul
-      className={`flex flex-col w-full space-y-1 px-3 pb-3 ${
+    <div
+      className={`flex flex-col w-full px-3 py-3 ${
         loading ? "items-center justify-center text-center" : ""
       }`}
     >
@@ -31,8 +31,8 @@ export default function BookingsMap({
               })
             ) &&
               booking.isReliable && (
-                <li
-                  className={`p-2 px-3 border-l-4 ${i === 0 && "mt-3"} ${
+                <div
+                  className={`p-2 px-3 border-l-4 mt-1 ${
                     moment().isBefore(
                       convertToDate({
                         ...booking.time,
@@ -66,7 +66,7 @@ export default function BookingsMap({
                       Szczegóły
                     </button>
                   </div>
-                </li>
+                </div>
               )}
           </div>
         ))}
@@ -106,8 +106,8 @@ export default function BookingsMap({
                 })
               ) &&
                 !booking.isReliable && (
-                  <li
-                    className={`p-2 px-3 border-l-4 ${
+                  <div
+                    className={`p-2 px-3 border-l-4 mt-1 ${
                       moment().isBefore(
                         convertToDate({
                           ...booking.time,
@@ -141,7 +141,7 @@ export default function BookingsMap({
                         <span>Szczegóły</span>
                       </div>
                     </div>
-                  </li>
+                  </div>
                 )}
             </div>
           ))}
@@ -159,6 +159,6 @@ export default function BookingsMap({
           </Link>
         </div>
       )}
-    </ul>
+    </div>
   );
 }

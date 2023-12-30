@@ -12,7 +12,7 @@ export default function About({ carousel }: { carousel: any }) {
   const { events } = useDraggable(ref);
   return (
     <div className=" bg-white pb-24 font-sans select-none">
-      <h2 className="bg-black text-white font-light text-center w-[85vw] lg:w-[900px] p-3 mx-auto">
+      <h2 className="text-black font-bold text-3xl w-[85vw] lg:w-[900px] py-3 mx-auto">
         Parę słów o paznokciach - manicure, który oferuję.
       </h2>
       <div
@@ -22,18 +22,23 @@ export default function About({ carousel }: { carousel: any }) {
       >
         {carousel.map((item: any, i: any) => (
           <div className="" key={i}>
-            <button
-              onClick={() => setCurrentOpen(i)}
+            <div
               key={i}
-              className="text-left min-w-[300px] flex flex-col h-full py-4 cursor-grab"
+              className="text-left min-w-[300px] flex flex-col h-full py-4"
             >
-              <h2 className="font-bold bg-black p-3 text-white h-max cursor-pointer">
+              <h2 className="font-bold bg-black p-3 text-white h-max rounded-t-xl">
                 {item.title}
               </h2>
               <p className="p-2 pt-4 bg-gray-300 h-full">
                 {cutSentence(item.content)}
               </p>
-            </button>
+              <button
+                onClick={() => setCurrentOpen(i)}
+                className="bg-indigo-600 p-2 px-3 text-white rounded-b-xl cursor-pointer"
+              >
+                Czytaj dalej
+              </button>
+            </div>
             {currentOpen === i && (
               <div
                 onClick={(e) => {

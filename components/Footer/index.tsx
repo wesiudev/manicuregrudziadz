@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import {
   FaEnvelope,
@@ -5,12 +6,17 @@ import {
   FaInstagramSquare,
   FaMap,
   FaPhone,
-  FaStar,
 } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
   return (
-    <div className="px-6 md:px-8 xl:px-32 w-full bg-[#FFE5B4] text-black font-sans font-light flex flex-col items-center justify-center">
+    <div
+      className={`px-6 md:px-8 xl:px-32 w-full bg-[#FFE5B4] text-black font-sans font-light flex flex-col items-center justify-center ${
+        pathname.includes("admin") && "hidden"
+      }`}
+    >
       <div className="py-12 grid grid-cols-1 lg:grid-cols-3">
         <div className="px-3 w-full flex flex-col justify-center text-center items-center lg:items-start lg:text-left mb-6 lg:mb-0">
           <h2 className="text-3xl text-zinc-800 font-bold">KONTAKT</h2>

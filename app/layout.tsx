@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import Toast from "@/components/Toast";
+
 export const metadata: Metadata = {
   title: " Paznokcie Grudziądz - Zróbmy Hybrydy, Żelowe lub Klasyczne!",
   description:

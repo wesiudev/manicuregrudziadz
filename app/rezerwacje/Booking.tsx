@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState, useRef } from "react";
-import { IService } from "@/components/ServicesGrid";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { cutSentence } from "@/app/utils/cutSentence";
 import Link from "next/link";
@@ -9,16 +8,18 @@ import { generateRandomDescription } from "@/app/utils/generateRandomDescription
 import MonthView from "./MonthView";
 import BookBtn from "@/components/BookBtn";
 import { polishToEnglish } from "@/app/utils/polishToEnglish";
-import { addDocument, auth } from "@/firebase";
+import { addDocument, auth, getDocument } from "@/firebase";
 import { v4 as uuidv4 } from "uuid";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { checkReliability } from "@/app/utils/checkReliability";
 import { FaClock, FaCoins } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { toastUpdate } from "@/components/Toast/Toasts";
 export default function Booking({
   services,
   bookings,
 }: {
-  services?: IService[];
+  services?: any[];
   bookings?: any;
 }) {
   const initialState = {
@@ -27,8 +28,15 @@ export default function Booking({
   };
   const [user, loading] = useAuthState(auth);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [chosenService, setChosenService] = useState(initialState);
+  const [chosenService, setChosenService] = useState<any>(initialState);
   const [visibleMonths, setVisibleMonths] = useState(2);
+  const [userData, setUserData] = useState<any>();
+  useEffect(() => {
+    async function getUser() {
+      await getDocument("users", user?.uid).then((res) => setUserData(res));
+    }
+    getUser();
+  }, [loading]);
   const nodeRef = useRef<any>();
   function setDate(day: any, month: any) {
     setChosenService({
@@ -55,24 +63,27 @@ export default function Booking({
       ...chosenService,
       isCompleted: false,
       isReliable: isReliable,
-      phoneNumber: phoneNumber,
+      phoneNumber: userData ? userData.phoneNumber : phoneNumber,
       id: uniqueId,
       uid: user?.uid,
-      time: { ...chosenService.time },
-      price: "150.00 zł",
+      time: chosenService.time,
+      price: chosenService.price,
     });
   }
   const router = useRouter();
   const finalizeOrder = async (phoneNumber: string) => {
+    const id = toast.loading(<span>Rezerwuję usługę...</span>);
+
     const uniqueId = uuidv4();
     if (user) {
       await checkReliability(user?.uid, bookings)
         .then((isReliable) => createBooking(isReliable, uniqueId))
-        .then(() =>
+        .then(() => {
           router.push(
             `/rezerwacje/finalizacja?phoneNumber=${phoneNumber}&bookingId=${uniqueId}`
-          )
-        );
+          );
+          toastUpdate("Zarezerwowano pomyślnie.", id, "success");
+        });
     } else {
       await addDocument("bookings", uniqueId, {
         ...chosenService,
@@ -80,13 +91,14 @@ export default function Booking({
         isReliable: false,
         phoneNumber: phoneNumber,
         id: uniqueId,
-        time: { ...chosenService.time },
-        price: "150.00 zł",
-      }).then(() =>
+        time: chosenService.time,
+        price: chosenService.price,
+      }).then(() => {
+        toastUpdate("Zarezerwowano pomyślnie.", id, "success");
         router.push(
           `/rezerwacje/finalizacja?phoneNumber=${phoneNumber}&bookingId=${uniqueId}`
-        )
-      );
+        );
+      });
     }
   };
   const [openedDescriptions, setOpenedDescriptions] = useState<number[]>([]);
@@ -94,7 +106,10 @@ export default function Booking({
   return (
     <div className="relative">
       {chosenService.name && (
-        <div className="bg-black bg-opacity-75 fixed top-0 left-0 w-screen h-screen z-[50]" />
+        <div
+          onClick={() => setChosenService(initialState)}
+          className="bg-black bg-opacity-75 fixed top-0 left-0 w-screen h-screen z-[50]"
+        />
       )}
       <h2 className="text-zinc-800 font-bold drop-shadow-lg shadow-black py-3 text-2xl sm:text-4xl mt-6 rounded-lg">
         Usługi Manicure
@@ -129,7 +144,7 @@ export default function Booking({
                         </Link>
                         <div className="hidden sm:flex flex-row items-start">
                           <span className="text-sm sm:text-base p-1 rounded-xl font-normal flex flex-row items-center bg-gray-400 text-white px-2 sm:px-3">
-                            <FaCoins className="mr-1.5 " /> 150zł
+                            <FaCoins className="mr-1.5 " /> {service.price}
                           </span>
 
                           <span className="ml-2 text-sm sm:text-base font-normal flex flex-row items-center p-1 rounded-xl bg-gray-400 text-white w-max px-2 sm:px-3">
@@ -151,18 +166,15 @@ export default function Booking({
 
                     <p className="block sm:hidden font-normal text-sm px-3 mt-2">
                       {openedDescriptions?.some((item) => item === idx) && (
-                        <>
-                          {service.serviceDescReservations}{" "}
-                          {service.serviceDescReservationsInfo}
-                        </>
+                        <>{service.serviceDesc}</>
                       )}
 
                       {!openedDescriptions?.some((item) => item === idx) &&
-                        cutSentence(service.serviceDescReservations)}
+                        cutSentence(service.serviceDesc)}
                       <br className="hidden sm:block ml-1" />
                       {openedDescriptions?.some((item) => item === idx) && (
                         <button
-                          className="text-blue-600"
+                          className="text-blue-600 ml-1"
                           onClick={() =>
                             setOpenedDescriptions((a) => [
                               ...a.filter((item) => item !== idx),
@@ -172,26 +184,24 @@ export default function Booking({
                           ukryj
                         </button>
                       )}
-                      {!openedDescriptions?.some((item) => item === idx) && (
-                        <button
-                          className="text-blue-600"
-                          onClick={() =>
-                            setOpenedDescriptions((a) => [...a, idx])
-                          }
-                        >
-                          rozwiń
-                        </button>
-                      )}
+                      {!openedDescriptions?.some((item) => item === idx) &&
+                        service.serviceDesc.length > 32 && (
+                          <button
+                            className="text-blue-600 ml-1"
+                            onClick={() =>
+                              setOpenedDescriptions((a) => [...a, idx])
+                            }
+                          >
+                            rozwiń
+                          </button>
+                        )}
                     </p>
                     <p className="hidden sm:block font-normal text-sm px-3 sm:px-0 mt-2">
-                      <>
-                        {service.serviceDescReservations}{" "}
-                        {service.serviceDescReservationsInfo}
-                      </>
+                      <>{service.serviceDesc}</>
                     </p>
                     <div className="sm:hidden flex flex-row items-start my-2 px-3">
                       <span className="text-sm sm:text-base p-1 rounded-xl font-normal flex flex-row items-center bg-gray-400 text-white px-1.5 sm:px-3">
-                        <FaCoins className="mr-1.5 " /> 150zł
+                        <FaCoins className="mr-1.5 " /> {service.price}
                       </span>
 
                       <span className="ml-2 text-sm sm:text-base font-normal flex flex-row items-center p-1 rounded-xl bg-gray-400 text-white w-max px-1.5 sm:px-3">
@@ -230,6 +240,7 @@ export default function Booking({
                       bookings={bookings}
                       visibleMonths={visibleMonths}
                       setVisibleMonths={setVisibleMonths}
+                      userData={userData}
                     />
                     <button
                       onClick={() => setChosenService(initialState)}
@@ -262,7 +273,7 @@ export default function Booking({
               </Link>
             </p>
           </div>
-          <div className="relative h-[40vh] overflow-hidden rounded-xl grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-2 lg:gap-1 mt-4">
+          <div className="relative h-[40vh] overflow-hidden rounded-xl grid grid-cols-4 sm:grid-cols-5 gap-3 sm:gap-2 lg:gap-1 mt-4">
             <>
               <div className="absolute left-0 top-0 rounded-xl bg-black hover:bg-opacity-90 duration-200 bg-opacity-70 w-full h-full flex items-center justify-center">
                 <Link

@@ -22,6 +22,7 @@ export default function BookBtn({
         setChosenService({
           ...chosenService,
           name: service.serviceName,
+          price: service.price,
         })
       }
       className={`bg-indigo-600 sm:h-[32px] text-white rounded-xl text-base px-2 hover:bg-indigo-400 duration-100 cursor-pointer items-center justify-center flex ${

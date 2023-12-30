@@ -84,7 +84,8 @@ export default function Register({
             uid: userCredential.user.uid,
             referer: referer ? referer : "",
             isCollected: referer ? false : true,
-            joined: Date.now(),
+            isCollectable: false,
+            coupons: [],
           });
           toastUpdate("Sukces!", id, "success");
           setThinking(false);

@@ -7,6 +7,7 @@ import Loading from "./loading";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useEffect, useState } from "react";
 import { Providers } from "@/redux/Provider";
+import Toast from "@/components/Toast";
 export default function AdminLayout({
   children,
 }: {
@@ -25,9 +26,10 @@ export default function AdminLayout({
     return <Loading />;
   } else
     return (
-      <div className="w-full font-sans relative z-[15000] bg-white">
+      <div className="-mt-[75px] w-full font-sans relative z-[15000] bg-white">
         {userData && userData?.isAdmin ? (
           <>
+            <Toast />
             <Providers>
               <Nav isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
               <div

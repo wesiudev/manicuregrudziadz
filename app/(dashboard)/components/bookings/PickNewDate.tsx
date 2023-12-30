@@ -11,17 +11,21 @@ export default function PickNewDate({
   chosenService,
   bookings,
   setRemove,
+  setShouldRefresh,
+  shouldRefresh,
 }: {
   setChosenService: Function;
   chosenService: any;
   bookings: any[];
   setRemove: Function;
+  setShouldRefresh: Function;
+  shouldRefresh: number;
 }) {
   const [visibleMonths, setVisibleMonths] = useState(2);
   const [isChosen, setIsChosen] = useState(false);
 
   moment.locale("pl");
-  const startDate = moment().add(2, "days").year(2023); // Set an explicit year
+  const startDate = moment().add(2, "days");
   const weeks = [];
   let currentDate = startDate.clone();
 
@@ -30,13 +34,17 @@ export default function PickNewDate({
     const monthName = currentDate.format("MMMM");
     const currentMonth = currentDate.month();
     const daysInMonth = currentDate.daysInMonth();
-
     for (let day = 0; day < 31; day++) {
       if (currentDate.month() === currentMonth) {
-        days.push({
-          day: currentDate.format("DD dddd"),
-          year: currentDate.year(), // Include the year in the days array
-        });
+        if (
+          !currentDate.format("DD dddd").includes("niedziela") &&
+          !currentDate.format("DD dddd").includes("sobota")
+        ) {
+          days.push({
+            day: currentDate.format("DD dddd"),
+            year: currentDate.year(), // Include the year in the days array
+          });
+        }
       } else {
         break;
       }
@@ -65,13 +73,30 @@ export default function PickNewDate({
     "16:30",
     "17:30",
   ];
+  function changeDate() {
+    const change = toast.loading(<span>Zmieniam termin...</span>);
+
+    const docRef = doc(db, "bookings", chosenService.id);
+    updateDoc(docRef, {
+      ...chosenService,
+      isCompleted: false,
+    }).then(() => {
+      setRemove(false);
+      setIsChosen(false);
+      setChosenService(null);
+    });
+    toastUpdate("Termin zmieniony pomyślnie.", change, "success");
+    setShouldRefresh(shouldRefresh + 1);
+  }
   return (
     <div className="px-4 sm:px-6  max-h-[80vh] overflow-y-scroll scrollbar-rounded">
       {weeks.map((weekData, idx) => (
         <div key={idx}>
-          <p className={`my-2 text-xl font-bold ${idx === 0 && "!mt-0"}`}>
-            {capitalizeFirstLetter(weekData.monthName)}
-          </p>
+          {weekData.days.length > 0 && (
+            <p className={`my-2 text-xl font-bold ${idx === 0 && "!mt-0"}`}>
+              {capitalizeFirstLetter(weekData.monthName)}
+            </p>
+          )}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-1">
             {weekData.days.map((day, dayIndex) => (
               <>
@@ -120,8 +145,7 @@ export default function PickNewDate({
                                       booking.isReliable === true &&
                                       booking.time.day.day === day.day &&
                                       booking.time.hour === item &&
-                                      booking.time.day.year ===
-                                        moment().year() &&
+                                      booking.time.day.year === day.year &&
                                       booking.time.month === weekData.monthName
                                   )}
                                   key={idx}
@@ -147,26 +171,7 @@ export default function PickNewDate({
                             </div>
                             {isChosen && (
                               <button
-                                onClick={() => {
-                                  const docRef = doc(
-                                    db,
-                                    "bookings",
-                                    chosenService.id
-                                  );
-                                  const id = toast.loading(
-                                    <span>Zmieniam termin...</span>
-                                  );
-                                  updateDoc(docRef, chosenService).then(() => {
-                                    setRemove(false);
-                                    setIsChosen(false);
-                                    setChosenService(null);
-                                    toastUpdate(
-                                      "Termin zmieniony pomyślnie.",
-                                      id,
-                                      "success"
-                                    );
-                                  });
-                                }}
+                                onClick={() => changeDate()}
                                 className="bg-green-600 text-white font-bold text-xl rounded-xl py-2 w-full mt-2"
                               >
                                 Zmień termin

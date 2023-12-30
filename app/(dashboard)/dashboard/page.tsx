@@ -1,7 +1,8 @@
 import Dashboard from "./Dashboard";
-async function getUsers() {
+async function getRelatedUsers(uid: string) {
+  "use server";
   const req = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/users/listUsers?secret=${process.env.API_SECRET_KEY}`,
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/users/listRelatedUsers?secret=${process.env.API_SECRET_KEY}&uid=${uid}`,
     {
       cache: "no-store",
     }
@@ -22,11 +23,10 @@ async function getBookings() {
   return bookings;
 }
 export default async function Page() {
-  const users = await getUsers();
   const bookings = await getBookings();
   return (
     <div>
-      <Dashboard users={users} bookings={bookings} />
+      <Dashboard getUsers={getRelatedUsers} bookings={bookings} />
     </div>
   );
 }

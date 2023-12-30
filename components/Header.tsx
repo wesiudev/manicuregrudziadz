@@ -8,7 +8,7 @@ export const Header = () => {
   const pathname = usePathname();
 
   return (
-    <div className="w-full">
+    <div className={`${pathname.includes("admin") && "hidden"} w-full`}>
       <div className="h-[75px] flex flex-row w-full justify-between mx-auto items-center bg-zinc-700 fixed top-0 left-0 z-[999] px-3 md:px-8  xl:px-32 backdrop-blur-md bg-opacity-90 drop-shadow-md shadow-zinc-400">
         <Link
           href="/"

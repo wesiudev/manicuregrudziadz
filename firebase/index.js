@@ -5,8 +5,6 @@ import {
   collection,
   getDocs,
   query,
-  orderBy,
-  addDoc,
   getDoc,
   setDoc,
   doc,
@@ -16,7 +14,7 @@ import {
   deleteDoc,
 } from "firebase/firestore/lite";
 import { getStorage } from "firebase/storage";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -28,10 +26,12 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASURMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
+
+const analytics = isSupported().then((yes) => (yes ? getAnalytics(app) : null));
 
 async function addBooking(req, id) {
   await setDoc(doc(db, "bookings", id), req);
@@ -84,35 +84,36 @@ async function getUsers() {
   const users = response.docs.map((doc) => doc.data());
   return users;
 }
-async function getDocument(collection, key) {
-  const docRef = doc(db, collection, key);
+async function getDocument(collectionName, key) {
+  const docRef = doc(db, collectionName, key);
   const docSnapshot = await getDoc(docRef);
 
   return docSnapshot.data();
 }
-async function addDocument(collection, uniqueId, data) {
-  await setDoc(doc(db, collection, uniqueId), data);
+async function getDocuments(collectionName) {
+  const ref = collection(db, collectionName);
+  const response = await getDocs(ref);
+  const res = response.docs.map((doc) => doc.data());
+  return res;
 }
-async function removeDocument(collection, uniqueId) {
-  await deleteDoc(doc(db, collection, uniqueId));
+async function addDocument(collectionName, uniqueId, data) {
+  await setDoc(doc(db, collectionName, uniqueId), data);
 }
-async function updateDocument(keys, values, collection, id) {
-  const docRef = doc(db, collection, id);
+async function removeDocument(collectionName, uniqueId) {
+  await deleteDoc(doc(db, collectionName, uniqueId));
+}
+async function updateDocument(keys, values, collectionName, id) {
+  const docRef = doc(db, collectionName, id);
   const docSnapshot = await getDoc(docRef);
 
   if (docSnapshot.exists()) {
     const existingData = docSnapshot.data();
     const updatedData = { ...existingData };
-
-    // Update or create each key-value pair
     keys.forEach((key, index) => {
       updatedData[key] = values[index];
     });
-
-    // Update the document in the database
     await updateDoc(docRef, updatedData);
   } else {
-    // If the document doesn't exist, create it with the provided keys and values
     const initialData = {};
     keys.forEach((key, index) => {
       initialData[key] = values[index];
@@ -122,7 +123,6 @@ async function updateDocument(keys, values, collection, id) {
   }
 }
 
-// blog
 async function getBlogPosts() {
   const docRef = doc(db, "blog", "blog");
   const docSnap = await getDoc(docRef);
@@ -168,6 +168,7 @@ export {
   addBlogPost,
   updateBlogPost,
   getDocument,
+  getDocuments,
   db,
   storage,
 };

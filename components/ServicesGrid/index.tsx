@@ -2,16 +2,8 @@
 import { GridElement } from "./GridElement";
 import { useRef } from "react";
 import { useDraggable } from "react-use-draggable-scroll";
-export interface IService {
-  index: number;
-  serviceName: string;
-  serviceDesc: string;
-  offerImage?: string;
-  duration: string;
-  url: string;
-}
 
-export const ServicesGrid = ({ services }: { services: IService[] }) => {
+export const ServicesGrid = ({ services }: { services: any[] }) => {
   const ref =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
   const { events } = useDraggable(ref);
@@ -24,9 +16,9 @@ export const ServicesGrid = ({ services }: { services: IService[] }) => {
       <div
         {...events}
         ref={ref}
-        className="relative w-[90%] mx-auto mt-20 flex flex-row overflow-x-scroll  space-x-6 scrollbar-rounded pb-4 pr-12 md:pr-20 xl:pr-48 "
+        className="relative w-[90%] mx-auto mt-20 flex flex-row overflow-x-scroll  space-x-6 scrollbar-rounded pb-4"
       >
-        {services.map((item: IService, i: number) => (
+        {services.map((item: any, i: number) => (
           <GridElement
             key={i}
             index={i}

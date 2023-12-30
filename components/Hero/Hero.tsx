@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { FaFacebook, FaInstagramSquare } from "react-icons/fa";
 import Link from "next/link";
+import { GoogleAuthProvider } from "firebase/auth";
+import GoToPortfolioBtn from "./GoToPortfolioBtn";
 
 export const Hero = () => {
   return (
@@ -53,21 +55,22 @@ export const Hero = () => {
                 Zarezerwuj
               </Link>
             </div>
-
-            <div className="grid grid-cols-4 gap-3 w-full mt-6">
-              {[1, 2, 3, 4].map((item: any, i: any) => (
-                <div key={i}>
-                  <Image
-                    style={{ boxShadow: "0px 0px 3px yellow" }}
-                    src={`/images/portfolio/img${item}.jpg`}
-                    width={222}
-                    height={222}
-                    alt=""
-                    className="rounded-xl w-full"
-                  />
-                </div>
-              ))}
-            </div>
+            <GoToPortfolioBtn>
+              <div className="grid grid-cols-4 gap-3 w-full mt-6">
+                {[1, 2, 3, 4].map((item: any, i: any) => (
+                  <div key={i}>
+                    <Image
+                      style={{ boxShadow: "0px 0px 3px yellow" }}
+                      src={`/images/portfolio/img${item}.jpg`}
+                      width={222}
+                      height={222}
+                      alt=""
+                      className="rounded-xl w-full"
+                    />
+                  </div>
+                ))}
+              </div>
+            </GoToPortfolioBtn>
           </div>
         </div>
       </div>

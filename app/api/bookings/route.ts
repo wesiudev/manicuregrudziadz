@@ -1,4 +1,4 @@
-import { getAllBookings } from "@/firebase";
+import { getAllBookings, getDocuments } from "@/firebase";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   if (secret !== process.env.API_SECRET_KEY) {
     return new NextResponse("not found", { status: 404 });
   }
-  const bookings = await getAllBookings();
+  const res = await getDocuments("bookings");
 
-  return NextResponse.json(bookings);
+  return NextResponse.json(res);
 }

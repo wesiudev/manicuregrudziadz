@@ -2,10 +2,11 @@
 import Link from "next/link";
 import Booking from "./Booking";
 
-async function getServicesList() {
-  const req = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/services`, {
-    cache: "no-store",
-  });
+export async function getServicesList() {
+  const req = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/services?secret=${process.env.API_SECRET_KEY}`,
+    { cache: "no-store" }
+  );
 
   const services = req.json();
   return services;
@@ -13,16 +14,14 @@ async function getServicesList() {
 async function getAllBookings() {
   const req = await fetch(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/bookings?secret=${process.env.API_SECRET_KEY}`,
-    {
-      cache: "no-store",
-    }
+    { cache: "no-store" }
   );
 
   const bookings = req.json();
   return bookings;
 }
 export default async function Reservations() {
-  const { services } = await getServicesList();
+  const services = await getServicesList();
   const bookings = await getAllBookings();
 
   return (

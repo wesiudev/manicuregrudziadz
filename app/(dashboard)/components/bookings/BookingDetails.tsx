@@ -13,10 +13,14 @@ export default function BookingDetails({
   booking,
   setOpenedBooking,
   bookings,
+  setShouldRefresh,
+  shouldRefresh,
 }: {
   booking: any;
   setOpenedBooking: Function;
   bookings: any[];
+  setShouldRefresh: Function;
+  shouldRefresh: number;
 }) {
   const [remove, setRemove] = useState(false);
   const [changeDate, setChangeDate] = useState(false);
@@ -85,13 +89,18 @@ export default function BookingDetails({
                 Zmień termin
               </button>
               <button
-                onClick={() => {
-                  const id = toast.loading(<span>Zmieniam termin...</span>);
-                  removeDocument("bookings", booking?.id).then(
-                    () => setRemove(false),
-                    setOpenedBooking(null)
-                  );
-                  toastUpdate("Termin usunięty pomyślnie.", id, "success");
+                onClick={async () => {
+                  const remove = toast.loading(<span>Usuwam...</span>);
+                  await removeDocument("bookings", booking?.id).then(() => {
+                    toastUpdate(
+                      "Termin usunięty pomyślnie.",
+                      remove,
+                      "success"
+                    );
+                    setRemove(false);
+                    setOpenedBooking(null);
+                    setShouldRefresh(shouldRefresh + 1);
+                  });
                 }}
                 className="bg-red-500 hover:bg-red-700 duration-300 text-white font-light text-2xl w-full rounded-xl py-1 sm:py-2 px-3"
               >
@@ -110,6 +119,8 @@ export default function BookingDetails({
               chosenService={booking}
               bookings={bookings}
               setRemove={setRemove}
+              setShouldRefresh={setShouldRefresh}
+              shouldRefresh={shouldRefresh}
             />
           </>
         )}
