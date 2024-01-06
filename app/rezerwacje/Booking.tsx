@@ -35,7 +35,9 @@ export default function Booking({
     async function getUser() {
       await getDocument("users", user?.uid).then((res) => setUserData(res));
     }
-    getUser();
+    if (user) {
+      getUser();
+    }
   }, [loading]);
   const nodeRef = useRef<any>();
   function setDate(day: any, month: any) {

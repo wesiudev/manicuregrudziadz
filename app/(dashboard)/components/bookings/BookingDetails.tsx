@@ -1,5 +1,4 @@
 "use client";
-import MonthView from "@/app/rezerwacje/MonthView";
 import { convertToDate } from "@/app/utils/convertToDate";
 import { removeDocument } from "@/firebase";
 import moment from "moment";
@@ -7,7 +6,6 @@ import { useState } from "react";
 import PickNewDate from "./PickNewDate";
 import { FaCog } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { toastUpdate } from "@/components/Toast/Toasts";
 
 export default function BookingDetails({
   booking,
@@ -90,13 +88,8 @@ export default function BookingDetails({
               </button>
               <button
                 onClick={async () => {
-                  const remove = toast.loading(<span>Usuwam...</span>);
                   await removeDocument("bookings", booking?.id).then(() => {
-                    toastUpdate(
-                      "Termin usunięty pomyślnie.",
-                      remove,
-                      "success"
-                    );
+                    toast.success(<>Termin usunięty pomyślnie.</>);
                     setRemove(false);
                     setOpenedBooking(null);
                     setShouldRefresh(shouldRefresh + 1);

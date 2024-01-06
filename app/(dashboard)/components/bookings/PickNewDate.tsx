@@ -74,8 +74,6 @@ export default function PickNewDate({
     "17:30",
   ];
   function changeDate() {
-    const change = toast.loading(<span>Zmieniam termin...</span>);
-
     const docRef = doc(db, "bookings", chosenService.id);
     updateDoc(docRef, {
       ...chosenService,
@@ -85,7 +83,7 @@ export default function PickNewDate({
       setIsChosen(false);
       setChosenService(null);
     });
-    toastUpdate("Termin zmieniony pomyślnie.", change, "success");
+    toast.success(<>Termin zmieniony pomyślnie</>);
     setShouldRefresh(shouldRefresh + 1);
   }
   return (

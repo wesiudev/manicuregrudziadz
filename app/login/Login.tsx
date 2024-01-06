@@ -5,17 +5,16 @@ import {
 } from "firebase/auth";
 import { useState } from "react";
 import { addDocument, auth } from "@/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
 import { toastUpdate } from "@/components/Toast/Toasts";
 import { errorCatcher } from "@/app/utils/errorCatcher";
 import Image from "next/image";
 import Link from "next/link";
 import { generateRandomDescription } from "../utils/generateRandomDescription";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
-  const [user, loading] = useAuthState(auth);
+  const router = useRouter();
   const [isThinking, setThinking] = useState(false);
   const [view, setView] = useState("login");
   const [userData, setUserData] = useState({
@@ -36,6 +35,7 @@ export default function Login() {
         ).then((userCredential) => {
           toastUpdate("Sukces!", id, "success");
           setThinking(false);
+          router.push("/dashboard");
         });
       } catch (err: any) {
         const errorMsg = errorCatcher(err);
@@ -85,6 +85,7 @@ export default function Login() {
           });
           toastUpdate("Sukces!", id, "success");
           setThinking(false);
+          router.push("/dashboard");
         });
       } catch (err: any) {
         const errorMsg = errorCatcher(err);
@@ -92,10 +93,6 @@ export default function Login() {
         setThinking(false);
       }
     })();
-  }
-
-  if (user) {
-    redirect(`/dashboard`);
   }
   return (
     <div className="font-sans w-full min-h-screen mt-[75px]  bg-slug bg-cover bg-center mx-auto relative flex flex-col items-center justify-center">
@@ -107,7 +104,7 @@ export default function Login() {
           <span className="font-light">Rezerwacja: {bookingData.id}</span>
         </h2>
       </div> */}
-      <div className="w-[90vw] sm:w-[70vw] lg:w-[60vw] xl:w-[40vw] p-4 lg:p-6 rounded-xl bg-white mt-4">
+      <div className="w-[90vw] sm:w-[70vw] lg:w-[60vw] xl:w-[40vw] p-4 lg:p-6 rounded-xl bg-gray-200 mt-4">
         <h2
           className={`text-zinc-800 text-center py-3 font-bold text-2xl lg:text-3xl xl:text-4xl drop-shadow-xl shadow-black`}
         >
@@ -115,7 +112,7 @@ export default function Login() {
             ? "Zarejestruj się i rezerwuj sesje manicure"
             : "Zaloguj się na swoje konto"}
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-12">
           {view === "register" && (
             <div className="flex flex-col">
               <label htmlFor="phone" className="font-bold">
@@ -130,7 +127,7 @@ export default function Login() {
                 onChange={(e) =>
                   setUserData({ ...userData, phoneNumber: e.target.value })
                 }
-                className="mt-1 bg-indigo-500 text-white shadow-sm shadow-black rounded-xl p-3 text-xl mb-3"
+                className="mt-1 bg-white text-black shadow-sm shadow-black rounded-xl p-3 text-xl mb-3"
               />
             </div>
           )}
@@ -148,7 +145,7 @@ export default function Login() {
               onChange={(e) =>
                 setUserData({ ...userData, email: e.target.value })
               }
-              className="mt-1 bg-indigo-500 text-white shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
+              className="mt-1 bg-white text-black shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
             />
           </div>
           <div className="flex flex-col">
@@ -165,7 +162,7 @@ export default function Login() {
               onChange={(e) =>
                 setUserData({ ...userData, password: e.target.value })
               }
-              className="mt-1 bg-indigo-500 text-white shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
+              className="mt-1 bg-white text-black shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
             />
           </div>
           {view === "register" && (
@@ -183,7 +180,7 @@ export default function Login() {
                 onChange={(e) =>
                   setUserData({ ...userData, passwordRepeat: e.target.value })
                 }
-                className="mt-1 bg-indigo-500 text-white shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
+                className="mt-1 bg-white text-black shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
               />
             </div>
           )}

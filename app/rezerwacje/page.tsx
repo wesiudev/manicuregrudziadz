@@ -5,7 +5,7 @@ import Booking from "./Booking";
 async function getServicesList() {
   const req = await fetch(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/services?secret=${process.env.API_SECRET_KEY}`,
-    { cache: "no-store" }
+    { next: { revalidate: 30 } }
   );
 
   const services = req.json();
@@ -14,7 +14,7 @@ async function getServicesList() {
 async function getAllBookings() {
   const req = await fetch(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/bookings?secret=${process.env.API_SECRET_KEY}`,
-    { cache: "no-store" }
+    { next: { revalidate: 30 } }
   );
 
   const bookings = req.json();

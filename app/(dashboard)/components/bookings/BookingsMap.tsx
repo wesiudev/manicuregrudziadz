@@ -13,6 +13,18 @@ export default function BookingsMap({
   bookingView: string;
   setOpenedBooking: Function;
 }) {
+  console.log(
+    bookings?.map((booking: any) => {
+      moment().isBefore(
+        convertToDate({
+          ...booking.time,
+          day: booking.time.day.day,
+          year: booking.time.day.year,
+        })
+      );
+    }).length
+  );
+
   return (
     <div
       className={`flex flex-col w-full px-3 py-3 ${
@@ -148,6 +160,28 @@ export default function BookingsMap({
         </>
       )}
 
+      {bookingView === "accepted" &&
+        bookings?.length > 0 &&
+        !loading &&
+        bookings?.map((booking: any) => {
+          moment().isBefore(
+            convertToDate({
+              ...booking.time,
+              day: booking.time.day.day,
+              year: booking.time.day.year,
+            })
+          );
+        }).length === 0 && (
+          <div className="flex flex-col text-center justify-center items-center py-12">
+            Jeszcze nie posiadasz żadnych rezerwacji
+            <Link
+              href="/rezerwacje"
+              className="bg-indigo-600 hover:bg-indigo-800 p-2 px-3 rounded-xl font-bold text-xl text-white mt-4"
+            >
+              Zarezerwuj
+            </Link>
+          </div>
+        )}
       {!bookings?.length && !loading && (
         <div className="flex flex-col text-center justify-center items-center py-12">
           Jeszcze nie posiadasz żadnych rezerwacji

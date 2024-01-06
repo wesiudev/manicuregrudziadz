@@ -29,7 +29,7 @@ export default function GoToPortfolioBtn({
               onClick={() => setGoToPortfolio(false)}
               className="bg-gray-500 hover:bg-gray-600 text-white font-bold text-xl mt-4 rounded-xl w-full p-2 px-3"
             >
-              Później
+              Zamknij
             </button>
             <span className="text-sm text-gray-600 text-center mt-4">
               (Portfolio znajduje się w sekcji rezerwacji)

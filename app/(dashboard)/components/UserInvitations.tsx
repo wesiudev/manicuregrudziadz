@@ -125,7 +125,7 @@ export default function UserInvitations({
                     >
                       W trakcie
                     </button>
-                    <p className="hidden group-hover:block absolute left-0 -bottom-24 z-[500] w-[300px] bg-white shadow-sm shadow-black rounded-xl p-2">
+                    <p className="hidden group-hover:block absolute right-0 -bottom-24 z-[500] w-[300px] bg-white shadow-sm shadow-black rounded-xl p-2">
                       Użytkownik już się zarejestrował. Kiedy dokona udanej
                       rezerwacji otrzymasz unikalny kod promocyjny.
                     </p>

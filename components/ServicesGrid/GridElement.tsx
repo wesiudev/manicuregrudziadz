@@ -34,7 +34,7 @@ export const GridElement = ({
       </p>
       <Link
         className="w-full py-2 bg-black rounded-b-xl text-white font-light text-center mt-0 sm:mt-3"
-        href={url}
+        href={`/rezerwacje/${url}`}
         title={`Manicure ${serviceName} trwa zazwyczaj ${duration}`}
       >
         Sprawdź

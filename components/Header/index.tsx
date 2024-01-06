@@ -1,43 +1,61 @@
 "use client";
 import { auth } from "@/firebase";
+import { signOut } from "firebase/auth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { FaSignOutAlt, FaUser } from "react-icons/fa";
 export const Header = () => {
   const [user, loading] = useAuthState(auth);
   const pathname = usePathname();
 
   return (
     <div className={`${pathname.includes("admin") && "hidden"} w-full`}>
-      <div className="h-[75px] flex flex-row w-full justify-between mx-auto items-center bg-zinc-700 fixed top-0 left-0 z-[999] px-3 md:px-8  xl:px-32 backdrop-blur-md bg-opacity-90 drop-shadow-md shadow-zinc-400">
+      <div className="h-[75px] flex flex-row w-full justify-between mx-auto items-center bg-zinc-800 fixed top-0 left-0 z-[999] px-3 md:px-8  xl:px-32 drop-shadow-md shadow-zinc-400">
         <Link
           href="/"
           className="flex flex-col h-max text-3xl sm:text-4xl relative"
         >
-          <div className="text-white !font-pars ">Piękniej</div>
+          <div className="text-white !font-pars">Piękniej</div>
         </Link>
+
         <div className="flex flex-row space-x-6">
-          {/* <Link
+          <Link
             href="/blog"
-            className="text-white font-bold text-2xl font-sans hover:underline p-2"
+            className="text-white p-1 rounded-xl text-lg sm:text-2xl font-sans hover:bg-zinc-700 duration-100"
           >
             Blog
-          </Link> */}
+          </Link>
+          <Link
+            href="/rezerwacje"
+            className="text-white p-1 rounded-xl text-lg sm:text-2xl font-sans hover:bg-zinc-700 duration-100"
+          >
+            Zarezerwuj
+          </Link>
           {user && pathname !== "/dashboard" && (
             <Link
               href="/dashboard"
-              className="text-white bg-indigo-600 p-2 px-3 rounded-xl font-bold text-lg sm:text-2xl font-sans hover:bg-indigo-500 duration-100"
+              className="text-white p-1 flex flex-row items-center rounded-xl font-bold text-lg sm:text-2xl font-sans hover:bg-zinc-700 duration-100"
             >
-              Moje konto
+              <FaUser className="mr-2" /> Moje konto
             </Link>
           )}
-          {(pathname === "/dashboard" || !user) && (
+          {!user && (
             <Link
-              href="/rezerwacje"
-              className="text-white bg-indigo-600 p-2 px-3 rounded-xl font-bold text-lg sm:text-2xl font-sans hover:bg-indigo-500 duration-100"
+              href="/login"
+              className="text-white p-1 flex flex-row items-center rounded-xl font-bold text-lg sm:text-2xl font-sans hover:bg-zinc-700 duration-100"
             >
-              Rezerwacje
+              <FaUser className="mr-2" /> Zaloguj
             </Link>
+          )}
+          {pathname === "/dashboard" && user && (
+            <button
+              onClick={() => signOut(auth)}
+              className="text-white p-1 flex flex-row items-center rounded-xl font-bold text-lg sm:text-2xl font-sans hover:bg-zinc-700 duration-100"
+            >
+              <FaSignOutAlt className="mr-2" />
+              Wyloguj
+            </button>
           )}
         </div>
         {/* <button

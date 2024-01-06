@@ -16,7 +16,7 @@ export default function Edit({ posts }: { posts: Post[] }) {
         />
       )}{" "}
       {selectedPost === undefined && (
-        <div className="flex flex-col pt-24 px-3 lg:px-6">
+        <div className="flex flex-col bg-blue-300 pt-24 px-3 lg:px-6 min-h-screen">
           <h1 className="text-3xl font-bold mb-4 text-white">
             Który post chcesz edytować?
           </h1>{" "}

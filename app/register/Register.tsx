@@ -13,12 +13,13 @@ import { errorCatcher } from "@/app/utils/errorCatcher";
 import Image from "next/image";
 import Link from "next/link";
 import { generateRandomDescription } from "../utils/generateRandomDescription";
-
+import { useRouter } from "next/navigation";
 export default function Register({
   referer,
 }: {
   referer: string | string[] | undefined;
 }) {
+  const router = useRouter();
   const [user, loading] = useAuthState(auth);
   const [isThinking, setThinking] = useState(false);
   const [view, setView] = useState("register");
@@ -40,6 +41,7 @@ export default function Register({
         ).then((userCredential) => {
           toastUpdate("Sukces!", id, "success");
           setThinking(false);
+          router.push("/dashboard");
         });
       } catch (err: any) {
         const errorMsg = errorCatcher(err);
@@ -94,13 +96,11 @@ export default function Register({
         const errorMsg = errorCatcher(err);
         toastUpdate(errorMsg, id, "error");
         setThinking(false);
+        router.push("/dashboard");
       }
     })();
   }
 
-  if (user) {
-    redirect(`/dashboard`);
-  }
   return (
     <div className="font-sans w-full min-h-screen mt-[75px]  bg-slug bg-cover bg-center mx-auto relative flex flex-col items-center justify-center">
       {/* <div className="flex sm:hidden flex-col items-center justify-center text-center rounded-b-xl py-8 w-[90vw] sm:w-[70vw] lg:w-[60vw] xl:w-[40vw]">
@@ -111,7 +111,7 @@ export default function Register({
           <span className="font-light">Rezerwacja: {bookingData.id}</span>
         </h2>
       </div> */}
-      <div className="w-[90vw] sm:w-[70vw] lg:w-[60vw] xl:w-[40vw] p-4 lg:p-6 rounded-xl bg-white mt-4">
+      <div className="w-[90vw] sm:w-[70vw] lg:w-[60vw] xl:w-[40vw] p-4 lg:p-6 rounded-xl bg-gray-200 mt-4">
         <h2
           className={`text-zinc-800 text-center py-3 font-bold text-2xl lg:text-3xl xl:text-4xl drop-shadow-xl shadow-black ${
             referer ? "" : "mb-3 lg:mb-6"
@@ -123,13 +123,13 @@ export default function Register({
         </h2>
         {referer && (
           <div className="pb-3 mb-3 flex flex-col text-center justify-center items-center">
-            <div>Zaproszenie nr:</div>
+            <div>Zaproszenie od:</div>
             <h3 className="ml-0 mt-3 p-2 px-3 bg-black rounded-xl text-white w-max text-sm sm:text-lg my-auto">
               {referer}
             </h3>
           </div>
         )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-12">
           {view === "register" && (
             <div className="flex flex-col">
               <label htmlFor="phone" className="font-bold">
@@ -144,7 +144,7 @@ export default function Register({
                 onChange={(e) =>
                   setUserData({ ...userData, phoneNumber: e.target.value })
                 }
-                className="mt-1 bg-indigo-500 text-white shadow-sm shadow-black rounded-xl p-3 text-xl mb-3"
+                className="mt-1 bg-white text-black shadow-sm shadow-black rounded-xl p-3 text-xl mb-3"
               />
             </div>
           )}
@@ -162,7 +162,7 @@ export default function Register({
               onChange={(e) =>
                 setUserData({ ...userData, email: e.target.value })
               }
-              className="mt-1 bg-indigo-500 text-white shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
+              className="mt-1 bg-white text-black shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
             />
           </div>
           <div className="flex flex-col">
@@ -179,7 +179,7 @@ export default function Register({
               onChange={(e) =>
                 setUserData({ ...userData, password: e.target.value })
               }
-              className="mt-1 bg-indigo-500 text-white shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
+              className="mt-1 bg-white text-black shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
             />
           </div>
           {view === "register" && (
@@ -197,7 +197,7 @@ export default function Register({
                 onChange={(e) =>
                   setUserData({ ...userData, passwordRepeat: e.target.value })
                 }
-                className="mt-1 bg-indigo-500 text-white shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
+                className="mt-1 bg-white text-black shadow-sm shadow-black rounded-xl  p-3 text-xl mb-3"
               />
             </div>
           )}

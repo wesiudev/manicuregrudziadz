@@ -9,6 +9,7 @@ import {
   FaCog,
   FaEdit,
   FaHome,
+  FaNetworkWired,
   FaPlus,
   FaRemoveFormat,
   FaShoppingCart,
@@ -48,6 +49,7 @@ export default function Nav({
         },
       ],
     },
+    { title: "Lista usług", href: `/admin/services`, icon: <FaNetworkWired /> },
     { title: "Użytkownicy", href: `/admin/users`, icon: <FaUsers /> },
     {
       title: "Logout",
