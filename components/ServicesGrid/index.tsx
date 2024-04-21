@@ -16,7 +16,7 @@ export const ServicesGrid = ({ services }: { services: any[] }) => {
       <div
         {...events}
         ref={ref}
-        className="relative w-[90%] mx-auto mt-20 flex flex-row overflow-x-scroll  space-x-6 scrollbar-rounded pb-4"
+        className="relative w-[90%] mx-auto mt-20 flex flex-row overflow-x-scroll space-x-6 scrollbar-rounded pb-4"
       >
         {services.map((item: any, i: number) => (
           <GridElement

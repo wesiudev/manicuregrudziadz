@@ -13,7 +13,7 @@ import {
 export default function HowItWorks() {
   const [currentHover, setCurrentHover] = useState<any>(1);
   return (
-    <div className="font-sans h-max py-12 w-screen lg:min-h-[60vh] px-3 md:px-8  xl:px-32 ">
+    <div className="bg-white font-sans h-max py-12 w-screen lg:min-h-[60vh] px-3 md:px-8  xl:px-32 ">
       <h2 className=" text-zinc-800 font-bold text-2xl text-center px-6 sm:text-4xl">
         Jak działają rezerwacje sesji manicure na stronie?
       </h2>
