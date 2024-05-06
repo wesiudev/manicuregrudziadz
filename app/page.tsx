@@ -12,7 +12,7 @@ export default async function Home() {
     <div className="w-full">
       <Hero />
       <ServicesGrid services={services} />
-      <HowItWorks />
+      {/* <HowItWorks /> */}
       <Reserve />
       <About carousel={carousel.carousel} />
     </div>
