@@ -1,6 +1,7 @@
 import Link from "next/link";
 import serviceSlugs from "@/public/serviceSlugs.json";
 import { FaClock } from "react-icons/fa";
+import { getDocuments } from "@/firebase";
 export async function generateStaticParams() {
   return serviceSlugs.content.map((item) => ({
     slug: item.url,
@@ -82,4 +83,23 @@ export default async function Page({ params }: { params: { slug: string } }) {
       ))}
     </div>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const services = await getDocuments("services");
+  const data = services.find((info) => info.url === params.slug);
+  const additionalData = serviceSlugs.content.find(
+    (info) => info.url === params.slug
+  );
+  const title = `Manicure ${data?.serviceName} - ${additionalData?.service} Grudziądz | Piekniej`;
+  const description = `Piękniej - Manicure Grudziądz. Manicure ${data?.serviceName}. Zapraszam na ${data?.service} Grudziądz`;
+
+  return {
+    title,
+    description,
+  };
 }
