@@ -9,13 +9,11 @@ import {
 } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 
-export default function Footer() {
+export default function Footer({ services }: { services: any[] }) {
   const pathname = usePathname();
   return (
     <div
-      className={`px-6 md:px-8 xl:px-32 w-full bg-[#FFE5B4] text-black font-sans font-light flex flex-col items-center justify-center ${
-        pathname.includes("admin") && "hidden"
-      }`}
+      className={`px-6 md:px-8 xl:px-32 w-full bg-[#FFE5B4] text-black font-sans font-light flex flex-col items-center justify-center`}
     >
       <div className="py-12 grid grid-cols-1 lg:grid-cols-3">
         <div className="px-3 w-full flex flex-col justify-center text-center items-center lg:items-start lg:text-left mb-6 lg:mb-0">
@@ -59,13 +57,20 @@ export default function Footer() {
           </Link>
         </div>
       </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+        {services.map((item: any, i: any) => (
+          <Link
+            href={`/rezerwacje/${item.url}`}
+            key={i}
+            className="font-sans text-zinc-800 text-lg text-center"
+          >
+            Manicure {item.serviceName}
+          </Link>
+        ))}
+      </div>
       <div className="bg-black bg-opacity-50 pt-1 px-1 rounded-t-xl text-white">
-        <Link
-          target="_blank"
-          title="Quixy - Strony Internetowe, Web Development"
-          href="https://quixy.pl/grudziadz"
-        >
-          Wykonanie: <span className="text-yellow-400">Quixy</span>
+        <Link target="_blank" title="wesiudev" href="https://wesiu.dev/">
+          Wykonanie: <span className="text-green-400">wesiudev</span>
         </Link>
       </div>
     </div>

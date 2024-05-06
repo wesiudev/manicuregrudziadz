@@ -11,8 +11,8 @@ export default async function Home() {
   return (
     <div className="w-full">
       <Hero />
-      <HowItWorks />
       <ServicesGrid services={services} />
+      <HowItWorks />
       <Reserve />
       <About carousel={carousel.carousel} />
     </div>

@@ -139,7 +139,7 @@ const MonthView = ({
                         <input
                           value={phoneNumber}
                           onChange={(e) => setPhoneNumber(e.target.value)}
-                          className="bg-indigo-500 font-bold text-xl p-2 rounded-xl text-white mt-1 w-full"
+                          className="bg-white border-2 border-green-500 font-bold text-xl p-2 rounded-xl text-black mt-1 w-full"
                           placeholder="Numer tel."
                           type="text"
                         />

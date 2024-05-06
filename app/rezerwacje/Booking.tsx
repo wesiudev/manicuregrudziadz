@@ -139,7 +139,7 @@ export default function Booking({
                     <div className="flex flex-row justify-between w-full px-3 sm:px-0">
                       <div className="flex flex-col sm:flex-row sm:justify-between w-full">
                         <Link
-                          href={service.url}
+                          href={`/rezerwacje/${service.url}`}
                           className="text-2xl font-bold sm:font-normal sm:text-2xl lg:text-3xl mt-3 sm:mt-0"
                         >
                           {service.serviceName}

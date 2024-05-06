@@ -1,7 +1,7 @@
 import Link from "next/link";
 import serviceSlugs from "@/public/serviceSlugs.json";
 import { FaClock } from "react-icons/fa";
-async function generateStaticParams() {
+export async function generateStaticParams() {
   return serviceSlugs.content.map((item) => ({
     slug: item.url,
   }));
@@ -52,8 +52,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <h2 className="text-2xl text-zinc-800 drop-shadow-xl shadow-black mt-8 font-bold">
                   {item.service}, czyli:
                 </h2>
-                <p className="text-lg  text-zinc-800 drop-shadow-xl shadow-black flex flex-col">
-                  <span className="flex flex-row space-x-2 mt-2 ">
+                <div className="text-lg text-zinc-800 drop-shadow-xl shadow-black flex flex-col mt-2">
+                  <span className="grid grid-cols-2 gap-2 lg:flex lg:space-x-3">
                     {item.additionalInfo.optionsAvailable.map(
                       (option: string, i: number) => (
                         <span
@@ -66,7 +66,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                       )
                     )}
                   </span>
-                </p>
+                </div>
               </div>
               <div className="mt-12">
                 <Link
@@ -80,16 +80,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
           )}
         </>
       ))}
-
-      {/* {data.content.map((item: any, i: any) => (
-        <>
-          <div key={i}>
-            {item.url}
-            {item.service}
-            {item.serviceDesc}
-          </div>
-        </>
-      ))} */}
     </div>
   );
 }

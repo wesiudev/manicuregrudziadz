@@ -6,10 +6,13 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FaSignOutAlt, FaUser } from "react-icons/fa";
-export const Header = () => {
+export const Header = ({ services }: { services: any[] }) => {
   const [user, loading] = useAuthState(auth);
   const pathname = usePathname();
   const [opened, setOpened] = useState(false);
+  function toggleMenu() {
+    setOpened(!opened);
+  }
   return (
     <div className={`${pathname.includes("admin") && "hidden"} w-full`}>
       <div className="h-[75px] flex flex-row w-full justify-between mx-auto items-center bg-zinc-800 fixed top-0 left-0 z-[999] px-3 md:px-8  xl:px-32 drop-shadow-md shadow-zinc-400">
@@ -20,14 +23,18 @@ export const Header = () => {
           <div className="text-white !font-pars">Piękniej</div>
         </Link>
 
-        <div className="hidden sm:flex flex-row space-x-6">
+        <div className="space-x-6 hidden lg:flex">
           <Link
+            onClick={toggleMenu}
+            title="Blog Manicure Grudziądz"
             href="/blog"
             className="text-white p-1 rounded-xl text-lg sm:text-2xl font-sans hover:bg-zinc-700 duration-100"
           >
             Blog
           </Link>
           <Link
+            onClick={toggleMenu}
+            title="Rezerwacje Paznokcie Grudziądz"
             href="/rezerwacje"
             className="text-white p-1 rounded-xl text-lg sm:text-2xl font-sans hover:bg-zinc-700 duration-100"
           >
@@ -35,20 +42,15 @@ export const Header = () => {
           </Link>
           {user && pathname !== "/dashboard" && (
             <Link
+              onClick={toggleMenu}
+              title="Paznokcie Hybrydowe Grudziądz"
               href="/dashboard"
               className="text-white p-1 flex flex-row items-center rounded-xl font-bold text-lg sm:text-2xl font-sans hover:bg-zinc-700 duration-100"
             >
               <FaUser className="mr-2" /> Moje konto
             </Link>
           )}
-          {!user && (
-            <Link
-              href="/login"
-              className="text-white p-1 flex flex-row items-center rounded-xl font-bold text-lg sm:text-2xl font-sans hover:bg-zinc-700 duration-100"
-            >
-              <FaUser className="mr-2" /> Zaloguj
-            </Link>
-          )}
+
           {pathname === "/dashboard" && user && (
             <button
               onClick={() => signOut(auth)}
@@ -60,8 +62,8 @@ export const Header = () => {
           )}
         </div>
         <button
-          className={`menu ${opened ? "opened" : ""} sm:hidden`}
-          onClick={() => setOpened(!opened)}
+          className={`menu ${opened ? "opened" : ""} lg:hidden`}
+          onClick={toggleMenu}
           aria-expanded={opened}
           aria-label="Main Menu"
         >
@@ -81,22 +83,20 @@ export const Header = () => {
       <div
         className={`${
           opened ? "z-[500]" : "z-[-500]"
-        } fixed lg:hidden left-0 top-0 h-screen w-screen bg-zinc-800 bg-opacity-90 backdrop-blur-md flex flex-col items-center justify-center lg:flex-row lg:space-x-6 space-y-12 lg:space-y-0`}
+        } fixed lg:hidden left-0 top-0 h-screen w-screen bg-zinc-700 bg-opacity-90 backdrop-blur-md flex flex-col items-center justify-center lg:flex-row lg:space-x-6 space-y-12 lg:space-y-0`}
       >
         <Link
+          onClick={toggleMenu}
+          title="Paznokcie Hybrydowe Grudziądz"
           href="/blog"
-          className="text-white p-2 px-3 rounded-xl font-bold text-4xl font-sans hover:bg-zinc-700 duration-100"
+          className="text-white font-bold text-4xl font-sans hover:underline p-2"
         >
           Blog
         </Link>
-        <Link
-          href="/rezerwacje"
-          className="text-white p-2 px-3 rounded-xl font-bold text-4xl font-sans hover:bg-zinc-700 duration-100"
-        >
-          Rezerwacje
-        </Link>
         {user && pathname !== "/dashboard" && (
           <Link
+            onClick={toggleMenu}
+            title="Paznokcie Hybrydowe Grudziądz"
             href="/dashboard"
             className="text-white p-1 flex flex-row items-center rounded-xl font-bold text-4xl font-sans hover:bg-zinc-700 duration-100"
           >
@@ -105,10 +105,12 @@ export const Header = () => {
         )}
         {!user && (
           <Link
+            onClick={toggleMenu}
+            title="Paznokcie Hybrydowe Grudziądz"
             href="/login"
             className="text-white p-1 flex flex-row items-center rounded-xl font-bold text-4xl font-sans hover:bg-zinc-700 duration-100"
           >
-            <FaUser className="mr-2" /> Zaloguj
+            Zaloguj
           </Link>
         )}
         {pathname === "/dashboard" && user && (
@@ -119,7 +121,28 @@ export const Header = () => {
             <FaSignOutAlt className="mr-2" />
             Wyloguj
           </button>
-        )}
+        )}{" "}
+        <div className="grid grid-cols-2 gap-4 mt-12">
+          {services.map((item: any, i: any) => (
+            <Link
+              onClick={toggleMenu}
+              title="Paznokcie Hybrydowe Grudziądz"
+              href={`/rezerwacje/${item.url}`}
+              key={i}
+              className="font-sans text-white text-sm text-center"
+            >
+              Manicure {item.serviceName}
+            </Link>
+          ))}
+        </div>
+        <Link
+          onClick={toggleMenu}
+          title="Paznokcie Hybrydowe Grudziądz"
+          href="/rezerwacje"
+          className="text-white bg-indigo-600 p-2 px-3 rounded-xl font-bold text-4xl font-sans hover:bg-indigo-500 duration-100 animate-pulse mx-auto mt-12"
+        >
+          Rezerwacje
+        </Link>
       </div>
     </div>
   );

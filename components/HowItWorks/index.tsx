@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   FaCalendarCheck,
-  FaCog,
   FaPhone,
   FaUser,
   FaUserFriends,
@@ -46,7 +45,7 @@ export default function HowItWorks() {
                   width={1024}
                   height={1024}
                   alt="Paznokcie Hybrydowe Grudziądz"
-                  className="rounded-xl w-full min-h-[300px] lg:w-auto"
+                  className="rounded-xl w-full h-auto lg:w-auto"
                 />
               </div>
             </div>

@@ -5,9 +5,10 @@ import { Metadata } from "next";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import Toast from "@/components/Toast";
+import { getDocuments } from "@/firebase";
 
 export const metadata: Metadata = {
-  title: " Paznokcie Grudziądz - Zróbmy Hybrydy, Żelowe lub Klasyczne!",
+  title: "Paznokcie Grudziądz - Zróbmy Hybrydy, Żelowe lub Klasyczne!",
   description:
     "Zarezerwuj sesję manicure w Grudziądzu! Paznokcie Hybrydowe, Żelowe, Klasyczne i wiele więcej. Paznokcie na imprezę?",
   publisher: "quixy",
@@ -16,21 +17,22 @@ export const metadata: Metadata = {
     icon: "/favicon.png",
   },
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const services = await getDocuments("services");
   return (
     <html lang="pl">
       <body
         className={`mt-[75px] ${cocosharp.variable} ${parisienne.variable}
        w-full overflow-x-hidden`}
       >
-        <Header />
+        <Header services={services} />
         <Toast />
         {children}
-        <Footer />
+        <Footer services={services} />
       </body>
     </html>
   );

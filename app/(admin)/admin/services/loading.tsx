@@ -18,7 +18,7 @@ export default function Loading() {
             fill="currentFill"
           />
         </svg>
-        <h1>Wczytywanie danych...</h1>
+        <h1 className="text-center">Wczytywanie danych...</h1>
       </div>
     </div>
   );
