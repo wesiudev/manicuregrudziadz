@@ -1,7 +1,7 @@
 // import { Parisienne } from "next/font/google";
 // import "./globals.css";
 // import localFont from "next/font/local";
-// import { Metadata } from "next";
+import { Metadata } from "next";
 // import { Header } from "@/components/Header";
 // import Footer from "@/components/Footer";
 // import Toast from "@/components/Toast";
