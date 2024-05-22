@@ -22,11 +22,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // ${cocosharp.variable} ${parisienne.variable}
   const services = await getDocuments("services");
   return (
     <html lang="pl">
       <body
-        className={`mt-[75px] ${cocosharp.variable} ${parisienne.variable}
+        className={`mt-[75px] 
+       
+
        w-full overflow-x-hidden`}
       >
         {/* <Header services={services} />
